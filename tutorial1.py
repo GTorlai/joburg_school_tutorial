@@ -121,18 +121,18 @@ class RBM(object):
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-N',type=int,default=4)
-    parser.add_argument('-nh',type=int,default=4)
+    parser.add_argument('-N',type=int,default=10)
+    parser.add_argument('-nh',type=int,default=1)
     parser.add_argument('-B',type=float,default=1.0)
     parser.add_argument('-lr',type=float,default=0.01)
     parser.add_argument('-bs',type=int,default=100)
     parser.add_argument('-sigma',type=float,default=0.1)
-    parser.add_argument('-ep',type=int,default=10000)
+    parser.add_argument('-ep',type=int,default=100000)
      
     pars = parser.parse_args()
     rbm = RBM(pars)
     
-    training_data = np.loadtxt('data/debug_data.txt') 
+    training_data = np.loadtxt('data/rbm_training_data.txt') 
     
     rbm.Train(training_data)
     
