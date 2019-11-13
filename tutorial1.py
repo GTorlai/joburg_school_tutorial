@@ -38,6 +38,35 @@ class RBM(object):
 
         ''' FILL HERE '''
 
+        #der_b = np.zeros((visible.shape[0],visible.shape[1]))
+        #for k in range(visible.shape[0]):
+        #    for j in range(visible.shape[1]):
+        #        der_b[k,j] = visible[k,j]
+        #
+        #der_b = np.mean(der_b,axis=0)
+
+        #der_c = np.zeros((visible.shape[0],self.nh))
+        #for k in range(visible.shape[0]):
+        #    for i in range(self.nh):
+        #        tmp = 0.0
+        #        for j in range(self.N):
+        #            tmp += self.W[i,j] * visible[j,k]
+        #        tmp += self.c[i]
+        #        
+        #        der_c[k,i] = 1.0 / (1.0 + m.exp(-tmp))
+        
+        argument = np.dot(visible,np.transpose(self.W)) + np.tile(self.c,[visible.shape[0],1])
+        sigmoid = 1.0 / (1.0 + np.exp(-argument))
+        der_W = np.dot(np.transpose(sigmoid),visible)/float(visible.shape[0])
+        der_b = np.mean(visible,axis=0)  
+        der_c = np.mean(sigmoid,axis=0) 
+        
+        #argument = np.dot(visible,np.transpose(self.W))+np.tile(self.c,[visible.shape[0],1]) 
+        #der_b = visible
+        #der_c = 1.0 / (1.0 + np.exp(-argument))
+        #der_W
+        #arg = 1.0 / (1.0 + np.exp(np.dot(visible,np.transpose(self.W))+np.tile(self.c,[visible.shape[0],1])))
+
         return der_W,der_b,der_c 
 
     def GradientUpdate(self,batch):
